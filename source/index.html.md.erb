@@ -1,0 +1,1026 @@
+---
+title: API Reference
+
+language_tabs: # must be one of https://git.io/vQNgJ
+  - shell: cURL
+  - ruby
+  - python
+  - javascript
+  - java
+
+toc_footers:
+  - <a href='https://enderbook.com/users/sign_up'>Sign In or Sign Up for an API Key</a>
+  - <a href='https://github.com/slatedocs/slate'>Enderbook Thanks Slate for Powering Our Documentation ❤️</a>
+
+includes:
+  - all_archive_parameters.md.erb
+  - item_list.md
+  - errors.md
+
+search: true
+
+code_clipboard: true
+
+meta:
+  - name: description
+    content: Documentation for the Enderbook API
+---
+
+# Introduction
+
+Welcome to the Enderbook API! You can use our API to access Enderbook API endpoints, which can get information on various Minecraft Archives uploaded by Enderbook users in our database.
+
+We have language bindings in Shell, Ruby, Python, Java, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+
+# Authentication
+
+Currently, authentication is not needed for requests except for archive creation. When creating an archive, a Bearer token will need to be provided in your request along with your API Key. See [Creating Archives](#creating-archives) to learn more.
+
+# Archives
+
+## Get All Archives
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://enderbook.com/api/v1/archives?page=1")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+
+response = https.request(request)
+puts response.read_body
+```
+
+```python
+# Using Requests
+import requests
+
+url = "https://enderbook.com/api/v1/archives?page=1"
+
+payload={}
+headers = {}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+
+# Using Http.Client instead
+import http.client
+
+conn = http.client.HTTPSConnection("enderbook.com")
+payload = ''
+headers = {}
+conn.request("GET", "/api/v1/archives", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```shell
+curl --location --request GET 'https://enderbook.com/api/v1/archives?page=1'
+```
+
+```java
+// Using Unirest
+Unirest.setTimeouts(0, 0);
+HttpResponse<String> response = Unirest.get("https://enderbook.com/api/v1/archives?page=1")
+  .asString();
+
+// Using OkHttp
+OkHttpClient client = new OkHttpClient().newBuilder()
+  .build();
+Request request = new Request.Builder()
+  .url("https://enderbook.com/api/v1/archives?page=1")
+  .method("GET", null)
+  .build();
+Response response = client.newCall(request).execute();
+```
+
+```javascript
+// Using Fetch
+var requestOptions = {
+  method: 'GET',
+  redirect: 'follow'
+};
+
+fetch("https://enderbook.com/api/v1/archives?page=1", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// Using jQuery
+var settings = {
+  "url": "https://enderbook.com/api/v1/archives?page=1",
+  "method": "GET",
+  "timeout": 0,
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+// Using XHR
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("GET", "https://enderbook.com/api/v1/archives?page=1");
+
+xhr.send();
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "data": {
+        "archives_count": 448,
+        "archives": [
+            {
+                "data": {
+                    "generic_data": {
+                        "username": "ianrandmckenzie",
+                        "title": "Shiny Kit",
+                        "slug": "shiny-kit",
+                        "archive_type": "kit",
+                        "created_at": "2020-06-23T08:14:37.253Z",
+                        "updated_at": "2021-01-04T01:58:18.137Z",
+                        "public": true,
+                        "for_trade": null,
+                        "nsfw": false,
+                        "url": "https://enderbook.com/archives/shiny-kit",
+                        "description": "",
+                        "likes": 1
+                    },
+                    "archive_items": {
+                        "data": {
+                            "items": [
+                                {
+                                    "item_type": 310,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Diamond Helmet",
+                                    "item_text_type": "diamond_helmet",
+                                    "kit_index": 1,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.257Z",
+                                    "updated_at": "2020-06-23T08:14:37.257Z"
+                                },
+                                {
+                                    "item_type": 278,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Diamond Pickaxe",
+                                    "item_text_type": "diamond_pickaxe",
+                                    "kit_index": 2,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.261Z",
+                                    "updated_at": "2020-06-23T08:14:37.261Z"
+                                },
+                                {
+                                    "item_type": 276,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Diamond Sword",
+                                    "item_text_type": "diamond_sword",
+                                    "kit_index": 3,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.263Z",
+                                    "updated_at": "2020-06-23T08:14:37.263Z"
+                                },
+                                {
+                                    "item_type": 426,
+                                    "item_meta": 0,
+                                    "item_name": "End Crystal",
+                                    "item_text_type": "end_crystal",
+                                    "kit_index": 4,
+                                    "quantity": 64,
+                                    "image_format": "png",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.265Z",
+                                    "updated_at": "2020-06-23T08:14:37.265Z"
+                                },
+                                {
+                                    "item_type": 359,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Shears",
+                                    "item_text_type": "shears",
+                                    "kit_index": 5,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.268Z",
+                                    "updated_at": "2020-06-23T08:14:37.268Z"
+                                },
+                                {
+                                    "item_type": 261,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Bow",
+                                    "item_text_type": "bow",
+                                    "kit_index": 6,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.270Z",
+                                    "updated_at": "2020-06-23T08:14:37.270Z"
+                                },
+                                {
+                                    "item_type": 373,
+                                    "item_meta": 10,
+                                    "item_name": "Potion of Regeneration",
+                                    "item_text_type": "potion",
+                                    "kit_index": 7,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.273Z",
+                                    "updated_at": "2020-06-23T08:14:37.273Z"
+                                },
+                                {
+                                    "item_type": 373,
+                                    "item_meta": 4,
+                                    "item_name": "Potion of Healing",
+                                    "item_text_type": "potion",
+                                    "kit_index": 8,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.275Z",
+                                    "updated_at": "2020-06-23T08:14:37.275Z"
+                                },
+                                {
+                                    "item_type": 373,
+                                    "item_meta": 13,
+                                    "item_name": "Potion of Strength",
+                                    "item_text_type": "potion",
+                                    "kit_index": 9,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.278Z",
+                                    "updated_at": "2020-06-23T08:14:37.278Z"
+                                },
+                                {
+                                    "item_type": 311,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Diamond Chestplate",
+                                    "item_text_type": "diamond_chestplate",
+                                    "kit_index": 10,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.281Z",
+                                    "updated_at": "2020-06-23T08:14:37.281Z"
+                                },
+                                {
+                                    "item_type": 278,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Diamond Pickaxe",
+                                    "item_text_type": "diamond_pickaxe",
+                                    "kit_index": 11,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.283Z",
+                                    "updated_at": "2020-06-23T08:14:37.283Z"
+                                },
+                                {
+                                    "item_type": 279,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Diamond Axe",
+                                    "item_text_type": "diamond_axe",
+                                    "kit_index": 12,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.286Z",
+                                    "updated_at": "2020-06-23T08:14:37.286Z"
+                                },
+                                {
+                                    "item_type": 426,
+                                    "item_meta": 0,
+                                    "item_name": "End Crystal",
+                                    "item_text_type": "end_crystal",
+                                    "kit_index": 13,
+                                    "quantity": 64,
+                                    "image_format": "png",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.289Z",
+                                    "updated_at": "2020-06-23T08:14:37.289Z"
+                                },
+                                {
+                                    "item_type": 443,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Elytra",
+                                    "item_text_type": "elytra",
+                                    "kit_index": 14,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.291Z",
+                                    "updated_at": "2020-06-23T08:14:37.291Z"
+                                },
+                                {
+                                    "item_type": 346,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Fishing Rod",
+                                    "item_text_type": "fishing_rod",
+                                    "kit_index": 15,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.292Z",
+                                    "updated_at": "2020-06-23T08:14:37.292Z"
+                                },
+                                {
+                                    "item_type": 373,
+                                    "item_meta": 10,
+                                    "item_name": "Potion of Regeneration",
+                                    "item_text_type": "potion",
+                                    "kit_index": 16,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.294Z",
+                                    "updated_at": "2020-06-23T08:14:37.294Z"
+                                },
+                                {
+                                    "item_type": 373,
+                                    "item_meta": 4,
+                                    "item_name": "Potion of Healing",
+                                    "item_text_type": "potion",
+                                    "kit_index": 17,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.296Z",
+                                    "updated_at": "2020-06-23T08:14:37.296Z"
+                                },
+                                {
+                                    "item_type": 373,
+                                    "item_meta": 13,
+                                    "item_name": "Potion of Strength",
+                                    "item_text_type": "potion",
+                                    "kit_index": 18,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.298Z",
+                                    "updated_at": "2020-06-23T08:14:37.298Z"
+                                },
+                                {
+                                    "item_type": 312,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Diamond Leggings",
+                                    "item_text_type": "diamond_leggings",
+                                    "kit_index": 19,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.299Z",
+                                    "updated_at": "2020-06-23T08:14:37.299Z"
+                                },
+                                {
+                                    "item_type": 313,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Diamond Boots",
+                                    "item_text_type": "diamond_boots",
+                                    "kit_index": 20,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.301Z",
+                                    "updated_at": "2020-06-23T08:14:37.301Z"
+                                },
+                                {
+                                    "item_type": 277,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Diamond Shovel",
+                                    "item_text_type": "diamond_shovel",
+                                    "kit_index": 21,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.303Z",
+                                    "updated_at": "2020-06-23T08:14:37.303Z"
+                                },
+                                {
+                                    "item_type": 426,
+                                    "item_meta": 0,
+                                    "item_name": "End Crystal",
+                                    "item_text_type": "end_crystal",
+                                    "kit_index": 22,
+                                    "quantity": 64,
+                                    "image_format": "png",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.310Z",
+                                    "updated_at": "2020-06-23T08:14:37.310Z"
+                                },
+                                {
+                                    "item_type": 398,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Carrot on a Stick",
+                                    "item_text_type": "carrot_on_a_stick",
+                                    "kit_index": 23,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.313Z",
+                                    "updated_at": "2020-06-23T08:14:37.313Z"
+                                },
+                                {
+                                    "item_type": 442,
+                                    "item_meta": 1,
+                                    "item_name": "Enchanted Shield",
+                                    "item_text_type": "shield",
+                                    "kit_index": 24,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.315Z",
+                                    "updated_at": "2020-06-23T08:14:37.315Z"
+                                },
+                                {
+                                    "item_type": 373,
+                                    "item_meta": 10,
+                                    "item_name": "Potion of Regeneration",
+                                    "item_text_type": "potion",
+                                    "kit_index": 25,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.321Z",
+                                    "updated_at": "2020-06-23T08:14:37.321Z"
+                                },
+                                {
+                                    "item_type": 373,
+                                    "item_meta": 4,
+                                    "item_name": "Potion of Healing",
+                                    "item_text_type": "potion",
+                                    "kit_index": 26,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.327Z",
+                                    "updated_at": "2020-06-23T08:14:37.327Z"
+                                },
+                                {
+                                    "item_type": 373,
+                                    "item_meta": 13,
+                                    "item_name": "Potion of Strength",
+                                    "item_text_type": "potion",
+                                    "kit_index": 27,
+                                    "quantity": null,
+                                    "image_format": "gif",
+                                    "hue_rotation": "1",
+                                    "durability": 100,
+                                    "created_at": "2020-06-23T08:14:37.331Z",
+                                    "updated_at": "2020-06-23T08:14:37.331Z"
+                                }
+                            ],
+                            "item_count": 27
+                        }
+                    },
+                    "kit_meta_image": {
+                        "filename": "kit_image_30.jpg",
+                        "urls": {
+                            "original": "//kitarchives.s3-ca-central-1.amazonaws.com/archives/og_images/000/000/030/original/kit_image_30.jpg?1593735445",
+                            "thumb": "//kitarchives.s3-ca-central-1.amazonaws.com/archives/og_images/000/000/030/thumb/kit_image_30.jpg?1593735445",
+                            "medium": "//kitarchives.s3-ca-central-1.amazonaws.com/archives/og_images/000/000/030/medium/kit_image_30.jpg?1593735445",
+                            "large": "//kitarchives.s3-ca-central-1.amazonaws.com/archives/og_images/000/000/030/large/kit_image_30.jpg?1593735445"
+                        }
+                    }
+                }
+            }//,
+             // ... four more archives are displayed here.
+        ]
+    }
+}
+```
+
+This endpoint retrieves all archives, paginated in sections of five.
+
+### HTTP Request
+
+`GET https://enderbook.com/api/v1/archives`
+
+### Query Parameters
+
+Parameter | Default | Description
+--------- | ------- | -----------
+page | First Page | If blank, returns latest five archives.
+archive_type | All Types | If blank, returns all archive types. Otherwise, narrow your choices: `banner,kit,map`, or simply `banner`
+
+### Archive Types
+- banner
+- base
+- blog
+- book
+- comment
+- ender_chest
+- kit
+- map
+- player
+- redstone
+- timeline
+
+## Get a Specific Archive
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://enderbook.com/api/v1/archives/25k-ne")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+
+response = https.request(request)
+puts response.read_body
+```
+
+```python
+# Using Requests
+import requests
+
+url = "https://enderbook.com/api/v1/archives/25k-ne"
+
+payload={}
+headers = {}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
+
+# Using http.client
+import http.client
+
+conn = http.client.HTTPSConnection("enderbook.com")
+payload = ''
+headers = {}
+conn.request("GET", "/api/v1/archives/25k-ne", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```shell
+curl --location --request GET 'https://enderbook.com/api/v1/archives/25k-ne'
+```
+
+```java
+// Using Unirest
+Unirest.setTimeouts(0, 0);
+HttpResponse<String> response = Unirest.get("https://enderbook.com/api/v1/archives/25k-ne")
+  .asString();
+
+// Using OkHttp
+OkHttpClient client = new OkHttpClient().newBuilder()
+  .build();
+Request request = new Request.Builder()
+  .url("https://enderbook.com/api/v1/archives/25k-ne")
+  .method("GET", null)
+  .build();
+Response response = client.newCall(request).execute();
+```
+
+```javascript
+// Using Fetch
+var requestOptions = {
+  method: 'GET',
+  redirect: 'follow'
+};
+
+fetch("https://enderbook.com/api/v1/archives/25k-ne", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// Using jQuery
+var settings = {
+  "url": "https://enderbook.com/api/v1/archives/25k-ne",
+  "method": "GET",
+  "timeout": 0,
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+// Using XHR
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("GET", "https://enderbook.com/api/v1/archives/25k-ne");
+
+xhr.send();
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "data": {
+        "generic_data": {
+            "username": "ianrandmckenzie",
+            "title": "25k NE",
+            "slug": "25k-ne",
+            "archive_type": "book",
+            "created_at": "2020-07-02T03:26:49.879Z",
+            "updated_at": "2021-01-04T01:58:05.544Z",
+            "public": true,
+            "for_trade": null,
+            "nsfw": false,
+            "url": "https://enderbook.com/archives/25k-ne",
+            "description": "",
+            "likes": 0,
+            "server": {
+                "slug": "constantiam-0257a3fe-70fa-4e91-82dc-be3ae5852cde",
+                "title": "Constantiam",
+                "minecraft_server_address": "constantiam.net",
+                "website_address": "constantiam.net",
+                "created_at": "2020-07-02T03:26:49.870Z",
+                "updated_at": "2020-12-08T01:44:52.242Z"
+            }
+        },
+        "book_author": "ianrandmckenzie",
+        "book_pages": {
+            "data": {
+                "pages_type": "image",
+                "page_count": 3,
+                "pages": [
+                    {
+                        "attachment_file_name": "Screen_Shot_2020-07-01_at_8.24.42_PM.png",
+                        "urls": {
+                            "original": "//kitarchives.s3-ca-central-1.amazonaws.com/gallery_images/attachments/000/000/001/original/Screen_Shot_2020-07-01_at_8.24.42_PM.png?1593660410",
+                            "thumb": "//kitarchives.s3-ca-central-1.amazonaws.com/gallery_images/attachments/000/000/001/thumb/Screen_Shot_2020-07-01_at_8.24.42_PM.png?1593660410",
+                            "medium": "//kitarchives.s3-ca-central-1.amazonaws.com/gallery_images/attachments/000/000/001/medium/Screen_Shot_2020-07-01_at_8.24.42_PM.png?1593660410",
+                            "large": "//kitarchives.s3-ca-central-1.amazonaws.com/gallery_images/attachments/000/000/001/large/Screen_Shot_2020-07-01_at_8.24.42_PM.png?1593660410"
+                        },
+                        "created_at": "2020-07-02T03:26:51.808Z",
+                        "updated_at": "2020-07-02T04:29:42.920Z"
+                    },
+                    {
+                        "attachment_file_name": "Screen_Shot_2020-07-01_at_8.24.35_PM.png",
+                        "urls": {
+                            "original": "//kitarchives.s3-ca-central-1.amazonaws.com/gallery_images/attachments/000/000/002/original/Screen_Shot_2020-07-01_at_8.24.35_PM.png?1593660411",
+                            "thumb": "//kitarchives.s3-ca-central-1.amazonaws.com/gallery_images/attachments/000/000/002/thumb/Screen_Shot_2020-07-01_at_8.24.35_PM.png?1593660411",
+                            "medium": "//kitarchives.s3-ca-central-1.amazonaws.com/gallery_images/attachments/000/000/002/medium/Screen_Shot_2020-07-01_at_8.24.35_PM.png?1593660411",
+                            "large": "//kitarchives.s3-ca-central-1.amazonaws.com/gallery_images/attachments/000/000/002/large/Screen_Shot_2020-07-01_at_8.24.35_PM.png?1593660411"
+                        },
+                        "created_at": "2020-07-02T03:26:52.333Z",
+                        "updated_at": "2020-07-02T04:29:42.923Z"
+                    },
+                    {
+                        "attachment_file_name": "Screen_Shot_2020-07-01_at_8.24.27_PM.png",
+                        "urls": {
+                            "original": "//kitarchives.s3-ca-central-1.amazonaws.com/gallery_images/attachments/000/000/003/original/Screen_Shot_2020-07-01_at_8.24.27_PM.png?1593660411",
+                            "thumb": "//kitarchives.s3-ca-central-1.amazonaws.com/gallery_images/attachments/000/000/003/thumb/Screen_Shot_2020-07-01_at_8.24.27_PM.png?1593660411",
+                            "medium": "//kitarchives.s3-ca-central-1.amazonaws.com/gallery_images/attachments/000/000/003/medium/Screen_Shot_2020-07-01_at_8.24.27_PM.png?1593660411",
+                            "large": "//kitarchives.s3-ca-central-1.amazonaws.com/gallery_images/attachments/000/000/003/large/Screen_Shot_2020-07-01_at_8.24.27_PM.png?1593660411"
+                        },
+                        "created_at": "2020-07-02T03:26:52.649Z",
+                        "updated_at": "2020-07-02T04:29:42.925Z"
+                    }
+                ]
+            }
+        }
+    }
+}
+```
+
+This endpoint retrieves a specific archive.
+
+<aside class="notice">Replace <code>YOUR_SLUG_HERE</code> with the archive's actual slug, e.g. <code>25k-ne</code></aside>
+
+### HTTP Request
+
+`GET https://enderbook.com/api/v1/archives/YOUR_SLUG_HERE`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+slug | The slug of the archive to retrieve
+
+## Creating Archives
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://enderbook.com/api/v1/archives/create?username=YOUR_USERNAME_HERE")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Post.new(url)
+request["Authorization"] = "Bearer YOUR_API_KEY_HERE"
+form_data = [['archive[title]', File.open('undefined')],['archive[archive_type]', File.open('undefined')],['archive[public]', File.open('undefined')],['archive[description]', File.open('undefined')],['archive[nsfw]', File.open('undefined')],['archive[for_trade]', File.open('undefined')],['archive[featured_image]', File.open('/path/to/Desktop/banner.png')]]
+request.set_form form_data, 'multipart/form-data'
+response = https.request(request)
+puts response.read_body
+```
+
+```python
+# Using Requests
+import requests
+
+url = "https://enderbook.com/api/v1/archives/create?username=YOUR_USERNAME_HERE"
+
+payload={}
+files=[
+  ('archive[featured_image]',('banner.png',open('/path/to/Desktop/banner.png','rb'),'image/png'))
+]
+headers = {
+  'Authorization': 'Bearer YOUR_API_KEY_HERE'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload, files=files)
+
+print(response.text)
+
+# Using http.client
+import http.client
+import mimetypes
+from codecs import encode
+
+conn = http.client.HTTPSConnection("enderbook.com")
+dataList = []
+boundary = 'wL36Yn8afVp8Ag7AmP8qZ0SA4n1v9T'
+dataList.append(encode('--' + boundary))
+dataList.append(encode('Content-Disposition: form-data; name=archive[title];'))
+
+dataList.append(encode('Content-Type: {}'.format('text/plain')))
+dataList.append(encode(''))
+
+dataList.append(encode("Distant Worlds Expedition"))
+dataList.append(encode('--' + boundary))
+dataList.append(encode('Content-Disposition: form-data; name=archive[archive_type];'))
+
+dataList.append(encode('Content-Type: {}'.format('text/plain')))
+dataList.append(encode(''))
+
+dataList.append(encode("banner"))
+dataList.append(encode('--' + boundary))
+dataList.append(encode('Content-Disposition: form-data; name=archive[public];'))
+
+dataList.append(encode('Content-Type: {}'.format('text/plain')))
+dataList.append(encode(''))
+
+dataList.append(encode("0"))
+dataList.append(encode('--' + boundary))
+dataList.append(encode('Content-Disposition: form-data; name=archive[description];'))
+
+dataList.append(encode('Content-Type: {}'.format('text/plain')))
+dataList.append(encode(''))
+
+dataList.append(encode("Look at my cool banner!"))
+dataList.append(encode('--' + boundary))
+dataList.append(encode('Content-Disposition: form-data; name=archive[nsfw];'))
+
+dataList.append(encode('Content-Type: {}'.format('text/plain')))
+dataList.append(encode(''))
+
+dataList.append(encode("0"))
+dataList.append(encode('--' + boundary))
+dataList.append(encode('Content-Disposition: form-data; name=archive[for_trade];'))
+
+dataList.append(encode('Content-Type: {}'.format('text/plain')))
+dataList.append(encode(''))
+
+dataList.append(encode("0"))
+dataList.append(encode('--' + boundary))
+dataList.append(encode('Content-Disposition: form-data; name=archive[featured_image]; filename={0}'.format('banner.png')))
+
+fileType = mimetypes.guess_type('/path/to/Desktop/banner.png')[0] or 'application/octet-stream'
+dataList.append(encode('Content-Type: {}'.format(fileType)))
+dataList.append(encode(''))
+
+with open('/path/to/Desktop/banner.png', 'rb') as f:
+  dataList.append(f.read())
+dataList.append(encode('--'+boundary+'--'))
+dataList.append(encode(''))
+body = b'\r\n'.join(dataList)
+payload = body
+headers = {
+  'Authorization': 'Bearer YOUR_API_KEY_HERE',
+  'Content-type': 'multipart/form-data; boundary={}'.format(boundary)
+}
+conn.request("POST", "/api/v1/archives/create?username=YOUR_USERNAME_HERE", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+# You python people are absolute madlads.
+# —Ian
+```
+
+```shell
+curl --location --request POST 'https://enderbook.com/api/v1/archives/create?username=YOUR_USERNAME_HERE' \
+--header 'Authorization: Bearer YOUR_API_KEY_HERE' \
+--form 'archive[title]="Distant Worlds Expedition"' \
+--form 'archive[archive_type]="banner"' \
+--form 'archive[public]="0"' \
+--form 'archive[description]="Look at my cool banner!"' \
+--form 'archive[nsfw]="0"' \
+--form 'archive[for_trade]="0"' \
+--form 'archive[featured_image]=@"/path/to/Desktop/banner.png"'
+```
+
+```java
+// Using Unirest
+Unirest.setTimeouts(0, 0);
+HttpResponse<String> response = Unirest.post("https://enderbook.com/api/v1/archives/create?username=YOUR_USERNAME_HERE")
+  .header("Authorization", "Bearer YOUR_API_KEY_HERE")
+  .field("archive[title]", "Distant Worlds Expedition")
+  .field("archive[archive_type]", "banner")
+  .field("archive[public]", "0")
+  .field("archive[description]", "Look at my cool banner!")
+  .field("archive[nsfw]", "0")
+  .field("archive[for_trade]", "0")
+  .field("file", new File("/path/to/Desktop/banner.png"))
+  .asString();
+
+// Using OkHttp
+OkHttpClient client = new OkHttpClient().newBuilder()
+  .build();
+MediaType mediaType = MediaType.parse("text/plain");
+RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+  .addFormDataPart("archive[title]","Distant Worlds Expedition")
+  .addFormDataPart("archive[archive_type]","banner")
+  .addFormDataPart("archive[public]","0")
+  .addFormDataPart("archive[description]","Look at my cool banner!")
+  .addFormDataPart("archive[nsfw]","0")
+  .addFormDataPart("archive[for_trade]","0")
+  .addFormDataPart("archive[featured_image]","banner.png",
+    RequestBody.create(MediaType.parse("application/octet-stream"),
+    new File("/path/to/Desktop/banner.png")))
+  .build();
+Request request = new Request.Builder()
+  .url("https://enderbook.com/api/v1/archives/create?username=YOUR_USERNAME_HERE")
+  .method("POST", body)
+  .addHeader("Authorization", "Bearer YOUR_API_KEY_HERE")
+  .build();
+Response response = client.newCall(request).execute();
+```
+
+```javascript
+// Using Fetch
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer YOUR_API_KEY_HERE");
+
+var formdata = new FormData();
+formdata.append("archive[title]", "Distant Worlds Expedition");
+formdata.append("archive[archive_type]", "banner");
+formdata.append("archive[public]", "0");
+formdata.append("archive[description]", "Look at my cool banner!");
+formdata.append("archive[nsfw]", "0");
+formdata.append("archive[for_trade]", "0");
+formdata.append("archive[featured_image]", fileInput.files[0], "banner.png");
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: formdata,
+  redirect: 'follow'
+};
+
+fetch("https://enderbook.com/api/v1/archives/create?username=YOUR_USERNAME_HERE", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+// Using jQuery
+var form = new FormData();
+form.append("archive[title]", "Distant Worlds Expedition");
+form.append("archive[archive_type]", "banner");
+form.append("archive[public]", "0");
+form.append("archive[description]", "Look at my cool banner!");
+form.append("archive[nsfw]", "0");
+form.append("archive[for_trade]", "0");
+form.append("archive[featured_image]", fileInput.files[0], "banner.png");
+
+var settings = {
+  "url": "https://enderbook.com/api/v1/archives/create?username=YOUR_USERNAME_HERE",
+  "method": "POST",
+  "timeout": 0,
+  "headers": {
+    "Authorization": "Bearer YOUR_API_KEY_HERE"
+  },
+  "processData": false,
+  "mimeType": "multipart/form-data",
+  "contentType": false,
+  "data": form
+};
+
+$.ajax(settings).done(function (response) {
+  console.log(response);
+});
+
+// Using XHR
+var data = new FormData();
+data.append("archive[title]", "Distant Worlds Expedition");
+data.append("archive[archive_type]", "banner");
+data.append("archive[public]", "0");
+data.append("archive[description]", "Look at my cool banner!");
+data.append("archive[nsfw]", "0");
+data.append("archive[for_trade]", "0");
+data.append("archive[featured_image]", fileInput.files[0], "banner.png");
+ 
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+
+xhr.addEventListener("readystatechange", function() {
+  if(this.readyState === 4) {
+    console.log(this.responseText);
+  }
+});
+
+xhr.open("POST", "https://enderbook.com/api/v1/archives/create?username=YOUR_USERNAME_HERE");
+xhr.setRequestHeader("Authorization", "Bearer YOUR_API_KEY_HERE");
+
+xhr.send(data);
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+    "status": 200,
+    "message": "New archive successfully created!",
+    "archive_slug": "distant-worlds-expedition-e75efa22-ed90-4485-9758-f1a4fae5db1b"
+}
+```
+
+This endpoint creates an archive. In this example, we are creating a banner from an image upload.
+
+<aside class="notice">
+You must replace <code>YOUR_API_KEY_HERE</code> with your personal API key.
+</aside>
+
+### HTTP Request
+
+`POST https://enderbook.com/api/v1/archives/create?username=YOUR_USERNAME_HERE`
+
+<aside class="notice">
+You must replace <code>YOUR_USERNAME_HERE</code> with your personal Enderbook username associated with your API Key.
+</aside>
+
+### Banner Example Parameters
+
+Parameter | Value | Description
+--------- | ----- | -----------
+archive[title] | string | Title of the archive
+archive[archive_type] | banner | Required
+archive[public] | 0 | Change value to 1 if you want the banner to be public.
+archive[description] | string | e.g. "Look at my cool banner!"
+archive[nsfw] | 0 | Change value to 1 if you somehow made a banner look offensive.
+archive[for_trade] | 0 | Change value to 1 if you want this to show up in the associated server's marketplace.
+archive[featured_image] | file path | e.g. `/path/to/Desktop/banner.png`
+

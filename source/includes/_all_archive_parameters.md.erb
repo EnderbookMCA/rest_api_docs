@@ -1,0 +1,143 @@
+# Archive Creation Parameters
+
+## Required Parameters for all Archives
+
+Parameter | Value | Description
+--------- | ----- | -----------
+archive[title] | string | Title of the archive
+archive[archive_type] | string | Required. See archive-specific banners for the archive type you're creating.
+archive[public] | 0 | Change value to 1 if you want the archive to be public.
+archive[description] | string | e.g. "Look at my cool stuff!"
+archive[nsfw] | 0 | Change value to 1 if your content is potentially offensive. See our [terms of service](https://enderbook.com/terms) for more info.
+
+## Server Parameters (available for all Archives)
+
+Parameter | Value | Description
+--------- | ----- | -----------
+archive[server_attributes][title] | string | The name of the Minecraft community server.
+archive[server_attributes][minecraft_server_address] | domain name | e.g. `play.hardcoredarwinism.com`
+archive[server_attributes][website_address] | URL | e.g. `https://hardcoredarwinism.com`
+archive[server_attributes][id] | integer | If you already have the ID of the server, use this instead of all of the other `server_attributes`.
+
+## Banner Parameters
+
+Parameter | Value | Description
+--------- | ----- | -----------
+archive[archive_type] | banner | Required.
+archive[featured_image] | file path | e.g. `/path/to/Desktop/banner.png`
+archive[ncs_banner_link] | URL | Must be from needcoolshoes.com, e.g. [https://www.needcoolshoes.com/banner?=pamKpzloot](https://www.needcoolshoes.com/banner?=pamKpzloot)
+archive[for_trade] | 0 | Change value to 1 if you want the archvie to show up in the associated server's marketplace.
+
+<aside class="warning">
+Ensure you have provided <code>featured_image</code> or <code>ncs_banner_link</code> or face potential ridicule from your peers.
+</aside>
+
+## Base / Settlement Parameters
+
+Parameter | Value | Description
+--------- | ----- | -----------
+archive[archive_type] | base | Required.
+archive[base_tour_link] | URL | Must be from youtube.com. Enderbook embeds your YouTube video to the archive.
+archive[gallery_images_attributes][attachment][] | file path | e.g. `/path/to/Desktop/base_entrance.png` - Try not to upload more than 10 images, or you may run into a timeout error.
+archive[gallery_images_attributes][attachment][] | file path | You can repeat this same parameter for each image you need to upload.
+
+<aside class="notice">
+Ensure you have provided <code>base_tour_link</code> and/or <code>gallery_images_attributes</code>. If you add both, the embedded YouTube video will be the first item in the gallery.
+</aside>
+
+## Blog Post Parameters
+
+Parameter | Value | Description
+--------- | ----- | -----------
+archive[archive_type] | blog | Required.
+archive[blog_category] | string | Recommended if your blog covers multiple topics.
+archive[raw_blog_content] | text | The blog content itself.
+archive[short_description] | string | In 200 characters or less, summarize your blog post content.
+
+## Book Parameters
+
+Parameter | Value | Description
+--------- | ----- | -----------
+archive[archive_type] | book | Required.
+archive[book_author] | string | Give credit to the person that wrote the book.
+archives[book_pages_attributes][0][content] | string | Repeat [0] through [49] for each page.
+archive[gallery_images_attributes][attachment][] | file path | e.g. `/path/to/Desktop/base_entrance.png`
+archive[gallery_images_attributes][attachment][] | file path | You can repeat this same parameter for each image you need to upload.
+
+<aside class="warning">
+Ensure you have provided <code>book_pages_attributes</code> or <code>gallery_images_attributes</code>, but not both.
+</aside>
+
+## Kit & Ender Chest Parameters
+
+Parameter | Value | Description
+--------- | ----- | -----------
+archive[archive_type] | kit | Required, use `ender_chest` if you're not creating a kit.
+archive[item_attributes][0][quantity] | integer | 0 - 127. Number of items in the stack.
+archive[item_attributes][0][kit_index] | integer | 1 - 27. See [Kit Index Reference](#kit-index-reference)
+archive[item_attributes][0][durability] | integer | 1 - 100
+archive[item_attributes][0][item_type] | integer | See [Item List](#item-list)
+archive[item_attributes][0][item_meta] | integer | See [Item List](#item-list)
+archive[item_attributes][0][item_name] | string | See [Item List](#item-list)
+archive[item_attributes][0][image_format] | png or gif | See [Item List](#item-list)
+archive[item_attributes][0][item_text_type] | string | See [Item List](#item-list)
+archive[item_attributes][0][enchantment_attributes][name] | string | Name of the enchantment.
+archive[item_attributes][0][enchantment_attributes][level] | integer | 1 - 32767. Level of the enchantment.
+
+<aside class="warning">
+Note the integer for each <code>item_attributes</code>. It starts at [0] and ends at [26]. <code>kit_index</code> is essentially the non-developer-readable version of this.
+</aside>
+
+### Kit Index Reference
+<%= image_tag "images/kit_index_reference.jpg" %>
+
+## Map Parameters
+<!-- archive[map_schematic] | Schematica file | Add support later. -->
+
+Parameter | Value | Description
+--------- | ----- | -----------
+archive[archive_type] | map | Required.
+archive[map_screenshot] | file path | e.g. `/path/to/Desktop/angry_goose_map_art.png`
+archive[map_creator] | string | Give credit to the cartographer / map artist.
+archive[map_id] | integer | Include the map ID if you know what it is (usually the default map name unless someone renamed it).
+
+## Player Parameters
+
+Parameter | Value | Description
+--------- | ----- | -----------
+archive[title] | Minecraft in-game name | For Enderbook to properly generate the player's skin, use the exact spelling of the player's Minecraft in-game name.
+archive[archive_type] | player | Required.
+archive[gallery_images_attributes][attachment][] | file path | e.g. `/path/to/Desktop/epic_player_screenshot.png`
+archive[gallery_images_attributes][attachment][] | file path | You can repeat this same parameter for each image you need to upload.
+
+## Redstone Machine Parameters
+<!-- archive[machine_schematic] | Schematica file | Add support later. -->
+
+Parameter | Value | Description
+--------- | ----- | -----------
+archive[archive_type] | base | Required.
+archive[machine_creator] | string | Give credit to the Redstone engineer.
+archive[youtube_link] | URL | Must be from youtube.com. Enderbook embeds your YouTube video to the archive.
+archive[gallery_images_attributes][attachment][] | file path | e.g. `/path/to/Desktop/machine_birdseye_view.png` - Try not to upload more than 10 images, or you may run into a timeout error.
+archive[gallery_images_attributes][attachment][] | file path | You can repeat this same parameter for each image you need to upload.
+
+## Timeline Parameters
+
+Parameter | Value | Description
+--------- | ----- | -----------
+archive[timeline_start] | yyyy-mm-dd | e.g. 2020-08-22 for August 22nd, 2020.
+archive[timeline_end] | yyyy-mm-dd | e.g. 2020-08-26 for August 26th, 2020.
+archive[timeline_ongoing] | 0 | Set value to 1 if the event is ongoing (in other words, there is no end date because the event is still taking place).
+archive[featured_image] | file path | e.g. `/path/to/Desktop/group_screenshot.png`
+archive[photo_credit] | string | Give credit to the person who took the photo/screenshot.
+archive[youtube_link] | URL | Must be from youtube.com. Enderbook embeds your YouTube video to the archive.
+archive[video_title] | string | Title of the video. Makes for a better display of the timeline event.
+archive[video_credit] | string | Give credit to the person who created the video.
+archive[blog_category] | string | Useful if you want to associate your timeline event with non-timeline blog posts.
+archive[raw_blog_content] | text | The body of your blog content.
+archive[text_credit] | string | Give credit to the person who wrote the body of the blog content. Useful if you are not the author of the text.
+archive[personal_timeline] | 0 | Set value to 1 if you want this post added to your personal timeline.
+archive[server_attributes][title] | string | The name of the Minecraft community server.
+archive[server_attributes][minecraft_server_address] | domain name | e.g. `play.hardcoredarwinism.com`
+archive[server_attributes][website_address] | URL | e.g. `https://hardcoredarwinism.com`
+archive[server_attributes][id] | integer | If you already have the ID of the server, use this instead of all of the other `server_attributes`.
