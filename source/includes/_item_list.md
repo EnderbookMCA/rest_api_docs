@@ -4,7 +4,7 @@
 require "uri"
 require "net/http"
 
-url = URI("http://localhost:3000/api/v1/items.json?minecraft_version=1.12.2")
+url = URI("https://enderbook.com/api/v1/items.json?minecraft_version=1.12.2")
 
 http = Net::HTTP.new(url.host, url.port);
 request = Net::HTTP::Get.new(url)
@@ -17,7 +17,7 @@ puts response.read_body
 # Using Requests
 import requests
 
-url = "http://localhost:3000/api/v1/items.json?minecraft_version=1.12.2"
+url = "https://enderbook.com/api/v1/items.json?minecraft_version=1.12.2"
 
 payload={}
 headers = {}
@@ -29,7 +29,7 @@ print(response.text)
 # Using http.client
 import http.client
 
-conn = http.client.HTTPSConnection("localhost", 3000)
+conn = http.client.HTTPSConnection("enderbook.com")
 payload = ''
 headers = {}
 conn.request("GET", "/api/v1/items.json?minecraft_version=1.12.2", payload, headers)
@@ -39,20 +39,20 @@ print(data.decode("utf-8"))
 ```
 
 ```shell
-curl --location --request GET 'http://localhost:3000/api/v1/items.json?minecraft_version=1.12.2'
+curl --location --request GET 'https://enderbook.com/api/v1/items.json?minecraft_version=1.12.2'
 ```
 
 ```java
 // Using Unirest
 Unirest.setTimeouts(0, 0);
-HttpResponse<String> response = Unirest.get("http://localhost:3000/api/v1/items.json?minecraft_version=1.12.2")
+HttpResponse<String> response = Unirest.get("https://enderbook.com/api/v1/items.json?minecraft_version=1.12.2")
   .asString();
 
 // Using OkHttp
 OkHttpClient client = new OkHttpClient().newBuilder()
   .build();
 Request request = new Request.Builder()
-  .url("http://localhost:3000/api/v1/items.json?minecraft_version=1.12.2")
+  .url("https://enderbook.com/api/v1/items.json?minecraft_version=1.12.2")
   .method("GET", null)
   .build();
 Response response = client.newCall(request).execute();
@@ -65,14 +65,14 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-fetch("http://localhost:3000/api/v1/items.json?minecraft_version=1.12.2", requestOptions)
+fetch("https://enderbook.com/api/v1/items.json?minecraft_version=1.12.2", requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
 
 // Using jQuery
 var settings = {
-  "url": "http://localhost:3000/api/v1/items.json?minecraft_version=1.12.2",
+  "url": "https://enderbook.com/api/v1/items.json?minecraft_version=1.12.2",
   "method": "GET",
   "timeout": 0,
 };
@@ -91,7 +91,7 @@ xhr.addEventListener("readystatechange", function() {
   }
 });
 
-xhr.open("GET", "http://localhost:3000/api/v1/items.json?minecraft_version=1.12.2");
+xhr.open("GET", "https://enderbook.com/api/v1/items.json?minecraft_version=1.12.2");
 
 xhr.send();
 ```
