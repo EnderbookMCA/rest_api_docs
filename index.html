@@ -1336,6 +1336,12 @@ You must replace <code>YOUR_API_KEY_HERE</code> with your personal API key.
 <aside class="notice">
 You must replace <code>YOUR_USERNAME_HERE</code> with your personal Enderbook username associated with your API Key.
 </aside>
+<h3 id='scoped-http-request-for-developers-with-multiple-api-keys'>Scoped HTTP Request for Developers with Multiple API Keys</h3>
+<p>If you have multiple API keys created on Enderbook, the API will default to the one with the <code>client_type</code> identified as <code>minecraft</code>. To specify which key to use, customize your client_type in your Enderbook API Key settings to identify which application you&#39;re working with.</p>
+
+<p>Then, in your API request add <code>&amp;client_type=YOUR_CLIENT_TYPE_HERE</code> to the end of the request URL. It is highly recommended that you <code>make_your_string_snake_case</code> to avoid URL errors.</p>
+
+<p><code>POST https://enderbook.com/api/v1/archives/create?username=YOUR_USERNAME_HERE&amp;client_type=YOUR_CLIENT_TYPE_HERE</code></p>
 <h3 id='banner-example-parameters'>Banner Example Parameters</h3>
 <table><thead>
 <tr>
